@@ -24,7 +24,8 @@ spec:
     # and write the date to a file inside it.
       containers:
         - name: php
-          image: 10.0.0.150:5000/php:3
+          #image: 10.0.0.150:5000/php:4
+          image: php:8-fpm
           imagePullPolicy: Always
           ports:
           - containerPort: 9000
@@ -34,7 +35,4 @@ spec:
             - name: nfs-volume
               mountPath: /var/www/html
 
-      # Write to a file inside our NFS
-      #    command: ["/bin/sh"]
-      #    args: ["-c", "while true; do date >> /var/www/html/dates.txt; sleep 5; done"]
       

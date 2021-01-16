@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-01-15T00:32:41Z"
+  name: php-svc
+  namespace: default
+  resourceVersion: "623047"
+  selfLink: /api/v1/namespaces/default/services/php-svc
+  uid: 48ef8c21-8eef-4b2a-82d3-8d62ac936f9e
+spec:
+  clusterIP: 10.106.67.254
+  ports:
+  - port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: php
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+

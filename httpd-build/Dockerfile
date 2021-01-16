@@ -4,5 +4,6 @@ RUN sed -i 's/proxy:unix:\/run\/php-fpm\/www.sock|fcgi:\/\/localhost/proxy:fcgi:
 COPY rsyslog.conf /etc/rsyslog.conf
 COPY localhost.crt /etc/pki/tls/certs/localhost.crt
 COPY localhost.key /etc/pki/tls/private/localhost.key
+COPY k8s.conf /etc/httpd/conf.d/k8s.conf
 HEALTHCHECK CMD wget -q --method=HEAD localhost
 CMD /usr/sbin/httpd -DFOREGROUND

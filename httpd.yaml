@@ -15,7 +15,7 @@ spec:
       volumes:
         - name: nfs-volume
           nfs: 
-            server: 10.0.0.63 # Change this!
+            server: 10.0.0.63 
             path: /san/nfs-fs/exports/export1
 
       containers:

@@ -4,7 +4,6 @@ metadata:
   name: php-deployment
 spec:
   replicas: 3
-  # Add the server as an NFS volume for the pod
   selector:
     matchLabels:
       app: php
@@ -16,21 +15,16 @@ spec:
       volumes:
         - name: nfs-volume
           nfs: 
-            # URL for the NFS server
-            server: 10.0.0.63 # Change this!
+            server: 10.0.0.63 
             path: /san/nfs-fs/exports/export1
 
-    # In this container, we'll mount the NFS volume
-    # and write the date to a file inside it.
       containers:
         - name: php
-          #image: 10.0.0.150:5000/php:4
-          image: php:8-fpm
+          image: php:7-fpm
           imagePullPolicy: Always
           ports:
           - containerPort: 9000
 
-      # Mount the NFS volume in the container
           volumeMounts:
             - name: nfs-volume
               mountPath: /var/www/html

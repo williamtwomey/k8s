@@ -4,7 +4,6 @@ metadata:
   name: httpd-deployment
 spec:
   replicas: 3
-  # Add the server as an NFS volume for the pod
   selector:
     matchLabels:
       app: httpd
@@ -16,12 +15,9 @@ spec:
       volumes:
         - name: nfs-volume
           nfs: 
-            # URL for the NFS server
             server: 10.0.0.63 # Change this!
             path: /san/nfs-fs/exports/export1
 
-    # In this container, we'll mount the NFS volume
-    # and write the date to a file inside it.
       containers:
         - name: httpd
           image: 10.0.0.150:5000/app1:3
@@ -29,12 +25,8 @@ spec:
           ports:
           - containerPort: 80
 
-      # Mount the NFS volume in the container
           volumeMounts:
             - name: nfs-volume
               mountPath: /var/www/html
 
-      # Write to a file inside our NFS
-      #    command: ["/bin/sh"]
-      #    args: ["-c", "while true; do date >> /var/www/html/dates.txt; sleep 5; done"]
       

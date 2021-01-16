@@ -3,11 +3,16 @@ kind: Deployment
 metadata:
   name: tomcat-deployment
 spec:
-  replicas: 1
+  replicas: 2
   # Add the server as an NFS volume for the pod
   selector:
     matchLabels:
       app: tomcat
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   template:
     metadata:
       labels:

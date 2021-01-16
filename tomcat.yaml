@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deployment
+spec:
+  replicas: 1
+  # Add the server as an NFS volume for the pod
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+    # In this container, we'll mount the NFS volume
+    # and write the date to a file inside it.
+      containers:
+        - name: tomcat
+          image: 10.0.0.150:5000/tomcat:5
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080

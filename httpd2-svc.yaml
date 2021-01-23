@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpd2-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: httpd
+  ports:
+    - name: http2-svc
+      protocol: TCP
+      port: 80
+      targetPort: 80

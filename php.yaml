@@ -25,7 +25,7 @@ spec:
 
       containers:
         - name: php
-          image: php:7-fpm
+          image: 10.0.0.150:5000/php:6
           imagePullPolicy: Always
           ports:
           - containerPort: 9000

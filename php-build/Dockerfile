@@ -1,5 +1,2 @@
-FROM centos
-RUN dnf install php-fpm -y
-RUN mkdir -p /run/php-fpm/
-COPY www.conf /etc/php-fpm.d/www.conf
-CMD php-fpm -F
+FROM php:7-fpm
+RUN docker-php-ext-install mysqli pdo pdo_mysql

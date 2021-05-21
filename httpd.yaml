@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: httpd-deployment
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: httpd
@@ -19,19 +19,29 @@ spec:
     spec:
       volumes:
         - name: nfs-volume
-          nfs: 
-            server: 10.0.0.63 
-            path: /san/nfs-fs/exports/export1
+          glusterfs:
+            endpoints: glusterfs-cluster
+            path: gfs1
 
       containers:
         - name: httpd
           image: 10.0.0.150:5000/httpd:4
           imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           ports:
           - containerPort: 80
-
           volumeMounts:
             - name: nfs-volume
               mountPath: /var/www/html
-
-      
+          livenessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            httpGet:
+              path: /health.html
+              port: 80

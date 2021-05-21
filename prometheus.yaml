@@ -17,9 +17,17 @@ spec:
       labels:
         app: prometheus
     spec:
+      volumes:
+        - name: prometheus-volume
+          glusterfs:
+            endpoints: glusterfs-cluster
+            path: prometheus
       containers:
         - name: prometheus
           image: 10.0.0.150:5000/prometheus
           imagePullPolicy: Always
           ports:
           - containerPort: 9090
+          volumeMounts:
+            - name: prometheus-volume
+              mountPath: /prometheus
